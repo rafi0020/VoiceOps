@@ -1,0 +1,12 @@
+# Speech recognition on the GPU (RTX-class, 6 GB is enough for small.en in float16):
+#   docker compose -f docker-compose.yml -f docker-compose.gpu.yml up -d --build api
+# Needs the NVIDIA Container Toolkit with CDI (`docker info` lists nvidia.com/gpu devices).
+services:
+  api:
+    build: { context: ./backend, target: gpu }
+    environment:
+      STT_DEVICE: cuda
+      STT_MODEL: small.en
+      STT_COMPUTE_TYPE: float16
+    devices:
+      - nvidia.com/gpu=all

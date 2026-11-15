@@ -1,0 +1,360 @@
+{
+ "name": "retrieval",
+ "at": "2026-11-14T16:04:11+00:00",
+ "n": 36,
+ "recall_at_3": 0.7778,
+ "questions": [
+  {
+   "question": "What details do you need before you can talk about my account?",
+   "expected": "[identity-and-privacy \u00a71]",
+   "found": [
+    "[vulnerable-customers \u00a71]",
+    "[identity-and-privacy \u00a71]",
+    "[identity-and-privacy \u00a72]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "I got my date of birth wrong three times, what now?",
+   "expected": "[identity-and-privacy \u00a72]",
+   "found": [
+    "[identity-and-privacy \u00a71]",
+    "[identity-and-privacy \u00a72]",
+    "[billing-and-payments \u00a72]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "Can my wife ring up about my bill for me?",
+   "expected": "[identity-and-privacy \u00a73]",
+   "found": [
+    "[billing-and-payments \u00a71]",
+    "[billing-and-payments \u00a72]",
+    "[billing-and-payments \u00a73]"
+   ],
+   "hit": false
+  },
+  {
+   "question": "How do I find out if there's an outage near me?",
+   "expected": "[outages-and-compensation \u00a71]",
+   "found": [
+    "[outages-and-compensation \u00a71]",
+    "[outages-and-compensation \u00a72]",
+    "[outages-and-compensation \u00a73]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "Do you pay anything back if my internet is off for a week?",
+   "expected": "[outages-and-compensation \u00a72]",
+   "found": [
+    "[billing-and-payments \u00a73]",
+    "[complaints \u00a72]",
+    "[credits-and-refunds \u00a71]"
+   ],
+   "hit": false
+  },
+  {
+   "question": "The technician cancelled on the morning of the visit, is that worth anything?",
+   "expected": "[outages-and-compensation \u00a73]",
+   "found": [
+    "[engineer-visits \u00a71]",
+    "[contracts-and-cancellation \u00a73]",
+    "[contracts-and-cancellation \u00a72]"
+   ],
+   "hit": false
+  },
+  {
+   "question": "Can the person on the phone give me a goodwill gesture?",
+   "expected": "[credits-and-refunds \u00a71]",
+   "found": [
+    "[identity-and-privacy \u00a71]",
+    "[handing-over \u00a72]",
+    "[handing-over \u00a71]"
+   ],
+   "hit": false
+  },
+  {
+   "question": "You billed me for a service I already cancelled, will I get it back?",
+   "expected": "[credits-and-refunds \u00a72]",
+   "found": [
+    "[credits-and-refunds \u00a72]",
+    "[billing-and-payments \u00a72]",
+    "[outages-and-compensation \u00a72]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "Can you put the refund into my bank instead of my account?",
+   "expected": "[credits-and-refunds \u00a73]",
+   "found": [
+    "[credits-and-refunds \u00a73]",
+    "[credits-and-refunds \u00a72]",
+    "[identity-and-privacy \u00a71]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "When do my bills come out each month?",
+   "expected": "[billing-and-payments \u00a71]",
+   "found": [
+    "[billing-and-payments \u00a71]",
+    "[billing-and-payments \u00a73]",
+    "[billing-and-payments \u00a72]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "What's the fee if I pay late?",
+   "expected": "[billing-and-payments \u00a72]",
+   "found": [
+    "[billing-and-payments \u00a73]",
+    "[billing-and-payments \u00a72]",
+    "[broadband-faults \u00a73]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "I've lost my job, can I pay off my balance bit by bit?",
+   "expected": "[billing-and-payments \u00a73]",
+   "found": [
+    "[billing-and-payments \u00a73]",
+    "[credits-and-refunds \u00a73]",
+    "[outages-and-compensation \u00a71]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "What should I try before you send someone about my broadband?",
+   "expected": "[broadband-faults \u00a71]",
+   "found": [
+    "[broadband-faults \u00a71]",
+    "[broadband-faults \u00a72]",
+    "[broadband-faults \u00a73]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "How quickly will the network team look at my fault?",
+   "expected": "[broadband-faults \u00a72]",
+   "found": [
+    "[broadband-faults \u00a72]",
+    "[engineer-visits \u00a72]",
+    "[broadband-faults \u00a71]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "My speed is never what you promised, can I leave without paying?",
+   "expected": "[broadband-faults \u00a73]",
+   "found": [
+    "[broadband-faults \u00a73]",
+    "[billing-and-payments \u00a72]",
+    "[billing-and-payments \u00a73]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "How much notice do you need before I move?",
+   "expected": "[moving-home \u00a71]",
+   "found": [
+    "[moving-home \u00a71]",
+    "[moving-home \u00a72]",
+    "[moving-home \u00a73]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "What if you don't cover my new street?",
+   "expected": "[moving-home \u00a72]",
+   "found": [
+    "[moving-home \u00a73]",
+    "[billing-and-payments \u00a71]",
+    "[moving-home \u00a71]"
+   ],
+   "hit": false
+  },
+  {
+   "question": "I'm moving for the second time this year, does that cost anything?",
+   "expected": "[moving-home \u00a73]",
+   "found": [
+    "[moving-home \u00a73]",
+    "[moving-home \u00a72]",
+    "[moving-home \u00a71]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "How long is a mobile contract?",
+   "expected": "[contracts-and-cancellation \u00a71]",
+   "found": [
+    "[contracts-and-cancellation \u00a71]",
+    "[contracts-and-cancellation \u00a72]",
+    "[moving-home \u00a72]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "I changed my mind a week after signing up, can I get out?",
+   "expected": "[contracts-and-cancellation \u00a72]",
+   "found": [
+    "[complaints \u00a72]",
+    "[vulnerable-customers \u00a72]"
+   ],
+   "hit": false
+  },
+  {
+   "question": "My minimum term is over, how do I leave?",
+   "expected": "[contracts-and-cancellation \u00a73]",
+   "found": [
+    "[contracts-and-cancellation \u00a71]",
+    "[contracts-and-cancellation \u00a72]",
+    "[contracts-and-cancellation \u00a73]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "How much per day to use my plan in Portugal?",
+   "expected": "[roaming \u00a71]",
+   "found": [
+    "[roaming \u00a71]",
+    "[roaming \u00a72]",
+    "[outages-and-compensation \u00a72]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "I'm going to Thailand, what will data cost?",
+   "expected": "[roaming \u00a72]",
+   "found": [
+    "[roaming \u00a72]",
+    "[contracts-and-cancellation \u00a72]",
+    "[moving-home \u00a73]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "How do I make a complaint?",
+   "expected": "[complaints \u00a71]",
+   "found": [
+    "[complaints \u00a71]",
+    "[complaints \u00a72]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "You haven't sorted my complaint in two months, who else can I go to?",
+   "expected": "[complaints \u00a72]",
+   "found": [
+    "[complaints \u00a71]",
+    "[complaints \u00a72]",
+    "[billing-and-payments \u00a71]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "I have a disability, can you keep a note of that?",
+   "expected": "[vulnerable-customers \u00a71]",
+   "found": [
+    "[vulnerable-customers \u00a71]",
+    "[vulnerable-customers \u00a72]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "My dad has a medical alarm on his line and it's broken",
+   "expected": "[vulnerable-customers \u00a72]",
+   "found": [
+    "[vulnerable-customers \u00a72]",
+    "[broadband-faults \u00a72]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "What time slots can an engineer come?",
+   "expected": "[engineer-visits \u00a71]",
+   "found": [
+    "[engineer-visits \u00a71]",
+    "[engineer-visits \u00a72]",
+    "[outages-and-compensation \u00a73]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "Will I be charged if the engineer finds the problem is my own wiring?",
+   "expected": "[engineer-visits \u00a72]",
+   "found": [
+    "[engineer-visits \u00a72]",
+    "[engineer-visits \u00a71]",
+    "[outages-and-compensation \u00a73]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "When will you transfer me to a human?",
+   "expected": "[handing-over \u00a71]",
+   "found": [],
+   "hit": false
+  },
+  {
+   "question": "Will the person you pass me to know what I've already said?",
+   "expected": "[handing-over \u00a72]",
+   "found": [
+    "[handing-over \u00a72]",
+    "[handing-over \u00a71]",
+    "[contracts-and-cancellation \u00a73]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "Is there a charge for roaming in Germany?",
+   "expected": "[roaming \u00a71]",
+   "found": [
+    "[roaming \u00a72]",
+    "[engineer-visits \u00a72]",
+    "[credits-and-refunds \u00a72]"
+   ],
+   "hit": false
+  },
+  {
+   "question": "Can I get compensation for no service?",
+   "expected": "[outages-and-compensation \u00a72]",
+   "found": [
+    "[outages-and-compensation \u00a72]",
+    "[billing-and-payments \u00a72]",
+    "[broadband-faults \u00a72]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "I was overcharged on my bill",
+   "expected": "[credits-and-refunds \u00a72]",
+   "found": [
+    "[credits-and-refunds \u00a72]",
+    "[billing-and-payments \u00a71]",
+    "[credits-and-refunds \u00a73]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "Will you cut me off if I can't pay?",
+   "expected": "[billing-and-payments \u00a72]",
+   "found": [
+    "[billing-and-payments \u00a73]",
+    "[billing-and-payments \u00a72]",
+    "[billing-and-payments \u00a71]"
+   ],
+   "hit": true
+  },
+  {
+   "question": "Do I need to be home when the engineer comes?",
+   "expected": "[engineer-visits \u00a71]",
+   "found": [
+    "[engineer-visits \u00a71]",
+    "[vulnerable-customers \u00a72]",
+    "[vulnerable-customers \u00a71]"
+   ],
+   "hit": true
+  }
+ ]
+}

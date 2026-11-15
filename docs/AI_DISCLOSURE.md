@@ -1,0 +1,84 @@
+# AI assistance disclosure
+
+VoiceOps AI was developed with AI coding assistance, and it uses AI models at runtime. This document states what was
+generated, what was decided by the maintainer, which models run inside the system, and how the result was verified.
+
+## Tools
+
+| Tool | Use |
+|---|---|
+| Claude (Anthropic), via Claude Code | Code, tests, evaluation scripts, documentation, running the stack and the evaluations |
+| Playwright | Browser journeys in `frontend/e2e`; the README screenshots in `docs/screenshots` |
+| Archify | The architecture diagram: `docs/architecture.diagram.json`, `docs/architecture.html`, `docs/architecture.png` |
+| Hallmark design skill | Design rules for the user interface |
+| Speech models (runtime) | Turn detection, speech recognition and speech synthesis; see *Runtime use of AI* |
+| A language model (optional, runtime) | The call agent and the CRM note; see [PROMPTS.md](PROMPTS.md) |
+
+## Division of responsibility
+
+The maintainer defined the scope, made the architecture decisions, reviewed the changes and the measured results, and
+decided what was merged. The assistant implemented under that direction. Decisions recorded in the repository include:
+
+- Identity is checked on the server, before any account tool runs. The model never supplies a customer identifier.
+- Row-level security on every tenant table, with a per-transaction organisation setting that is safe behind PgBouncer.
+- Credits above the per-call limit wait for a supervisor, through a LangGraph interrupt.
+- A CRM note whose figures must come from the transcript or the call's events; unsupported sentences are removed and listed.
+- Only transcripts are kept. Audio is not recorded.
+- Evaluation graded from the database, not from the assistant's own account of a call, on scripted calls, held-out policy
+  questions, recognition on synthesised speech, and a set of spoken attacks.
+
+Details are in [ARCHITECTURE.md](ARCHITECTURE.md), [SECURITY.md](SECURITY.md) and [EVALUATION.md](EVALUATION.md).
+
+## Runtime use of AI
+
+**Speech.**
+
+| Stage | Model or library | Default | Where |
+|---|---|---|---|
+| Turn detection | Silero VAD (ONNX, shipped with faster-whisper) | 600 ms of silence ends a turn (`VAD_SILENCE_MS`) | `backend/app/speech/vad.py` |
+| Speech recognition | faster-whisper, `base.en` on CPU (int8) | `small.en` on GPU (float16) with `docker-compose.gpu.yml` | `backend/app/speech/stt.py` |
+| Speech synthesis | Piper, `en_US-lessac-medium` | `en_US-ryan-medium` is used by the evaluation for the customer's synthesised voice | `backend/app/speech/tts.py` |
+
+Hosted recognition and synthesis through an OpenAI-compatible service are also supported; see [PROVIDERS.md](PROVIDERS.md).
+
+**Language model.** Optional. With `LLM_PROVIDER=stub` the system runs a rule-based stand-in and no model is called.
+When a provider is configured, the call agent receives the caller's words, the verified account data returned by the
+tools, and policy passages. Supported adapters are Anthropic (Messages API), any OpenAI-compatible endpoint, and Ollama
+for a local model. The evaluation reports results for Claude Sonnet 5.5 and GPT-6 Sol through a gateway on the
+maintainer's network. The gateway key is kept in a file outside the repository and is never written into it.
+
+**Privacy.** The customer's words, and the account data the tools return to the agent, are sent to the configured language
+model. With the default local speech settings (`STT_PROVIDER=local`, `TTS_PROVIDER=local`) the audio itself stays on the
+host. For a language model that must not leave the network, use `LLM_PROVIDER=ollama` with a local model.
+
+**Controls on model output.** The agent's tools are enforced by the server, not by the prompt. The CRM note is checked
+by code before it is stored. Both are described in [PROMPTS.md](PROMPTS.md), section 5.
+
+## Verification
+
+- Backend tests in `backend/tests`, run with `make test` (`RUN_LIVE=0`). The latest run is recorded in
+  [`docs/test-results/`](test-results/pytest-output.txt): `junit.xml` and the console output. Speech tests that need the
+  models in the test image are marked `speech` and are skipped outside it; live model tests are marked `live` and are
+  not run by default.
+- Browser journeys in `frontend/e2e` (Playwright), which run against the full stack and sign in once per account.
+- Evaluation: scripted calls and their grading (`backend/eval/run_eval.py`), policy search recall
+  (`backend/eval/run_retrieval.py`), recognition error rate (`backend/eval/run_wer.py`), and spoken attacks
+  (`backend/eval/attacks.py`). Raw results are in `backend/eval/results/`. Figures and method are in
+  [EVALUATION.md](EVALUATION.md); latency under load is in [SCALE.md](SCALE.md).
+- `backend/tests/test_eval_gate.py` fails if a recorded result falls below `backend/eval/baseline.json`, or if any recorded
+  call gave account data before the caller was verified.
+
+## Data
+
+The demonstration data is generated by the seed in `backend/seed/` (seven planted customers for Larkspur Telecom, and
+generated customers and bills for the rest). No real customer data is included. The policy passages are written for the
+demonstration. The demo accounts and their passwords are public and documented in the README.
+
+## Limitations
+
+- The evaluation uses small samples: 10 held-out scripted calls per model, 36 retrieval questions, 24 recognition
+  sentences. Differences of one or two calls are within noise.
+- Recognition is measured on synthesised speech, not on telephone-band audio or real callers.
+- The scripted calls are typed, so their pass rates do not include recognition errors.
+- The security notes in [SECURITY.md](SECURITY.md) and the warning in the README apply: knowledge-based verification is
+  weak, and a public deployment needs its own rate-limited entry point.

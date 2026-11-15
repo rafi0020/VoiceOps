@@ -1,0 +1,73 @@
+/* VoiceOps AI tokens. Dark midnight-teal is the default; light is a daylight version of the same world. */
+:root {
+  color-scheme: dark;
+  /* Space: a 4px scale, larger steps for a spacious live stage. */
+  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px;
+  --space-xl: 32px; --space-2xl: 48px; --space-3xl: 64px; --space-4xl: 96px;
+  /* Type: Bricolage Grotesque for display, Figtree for everything else (tabular figures for readouts). */
+  --text-xs: 0.8125rem; --text-sm: 0.9375rem; --text-md: 1rem; --text-lg: 1.1875rem; --text-xl: 1.4375rem;
+  --text-2xl: 1.75rem; --text-3xl: 2.25rem; --text-display: clamp(2.5rem, 4vw + 1rem, 4rem);
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --font-figure: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --display-weight: 600; --tracking-display: -0.02em;
+  /* Shape: large radii, pill controls. */
+  --radius-card: 24px; --radius-field: 16px; --radius-sheet: 28px; --radius-pill: 999px; --rule-hair: 1px;
+  /* Depth: soft, low, never glassy. */
+  --shadow-soft: 0 1px 0 oklch(100% 0.005 190 / 0.04) inset, 0 28px 56px -32px oklch(8% 0.04 205 / 0.9);
+  --color-shade: oklch(12% 0.03 205 / 0.22);
+  /* Motion: transform and opacity only. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 140ms; --dur-short: 240ms; --dur-long: 600ms;
+  /* Z layers. */
+  --z-base: 1; --z-raised: 10; --z-sticky: 200; --z-sheet: 400; --z-toast: 500;
+  /* Colour: midnight teal ground, warm coral for the live voice and the primary action, soft mint for live. */
+  --color-paper: oklch(17% 0.034 205);
+  --color-paper-2: oklch(21.5% 0.036 204);
+  --color-paper-3: oklch(27% 0.04 202);
+  --color-ink: oklch(97% 0.012 180);
+  --color-ink-2: oklch(87% 0.024 188);
+  --color-muted: oklch(80% 0.03 195);
+  --color-rule: oklch(34% 0.04 202);
+  --color-rule-2: oklch(46% 0.045 200);
+  --color-accent: oklch(78% 0.14 38);
+  --color-accent-2: oklch(70% 0.15 25);
+  --color-accent-ink: oklch(19% 0.035 205);
+  --color-accent-soft: oklch(32% 0.07 36);
+  --color-live: oklch(88% 0.12 165);
+  --color-live-soft: oklch(31% 0.055 170);
+  --color-hold-soft: oklch(33% 0.045 85);
+  --color-focus: oklch(92% 0.09 165);
+  --color-error: oklch(76% 0.15 22);
+  --color-error-soft: oklch(28% 0.07 25);
+  --color-scrim: oklch(12% 0.03 205 / 0.72);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-paper: oklch(97% 0.012 190);
+  --color-paper-2: oklch(99.2% 0.006 190);
+  --color-paper-3: oklch(94% 0.018 190);
+  --color-ink: oklch(23% 0.035 205);
+  --color-ink-2: oklch(35% 0.035 205);
+  --color-muted: oklch(46% 0.03 200);
+  --color-rule: oklch(89% 0.02 190);
+  --color-rule-2: oklch(78% 0.03 195);
+  --color-accent: oklch(52% 0.17 35);
+  --color-accent-2: oklch(54% 0.17 22);
+  --color-accent-ink: oklch(99% 0.006 190);
+  --color-accent-soft: oklch(93% 0.05 45);
+  --color-live: oklch(50% 0.1 168);
+  --color-live-soft: oklch(93% 0.05 170);
+  --color-hold-soft: oklch(94% 0.05 85);
+  --color-focus: oklch(42% 0.12 195);
+  --color-error: oklch(52% 0.18 25);
+  --color-error-soft: oklch(94% 0.04 25);
+  --color-scrim: oklch(23% 0.035 205 / 0.35);
+  --shadow-soft: 0 1px 0 oklch(100% 0.005 190) inset, 0 24px 48px -30px oklch(30% 0.05 205 / 0.35);
+  --color-shade: oklch(30% 0.05 205 / 0.14);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { color-scheme: dark; }
+}

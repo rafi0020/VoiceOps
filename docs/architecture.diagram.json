@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "VoiceOps AI architecture",
+    "subtitle": "Browser audio, voice turns, a tool-using agent, and tenant data",
+    "output": "docs/architecture.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "customer", "type": "external", "label": "Customer", "sublabel": "Browser", "pos": [40, 300], "size": [120, 64] },
+    { "id": "staff", "type": "external", "label": "Staff", "sublabel": "Supervisor or agent", "pos": [40, 460], "size": [120, 64] },
+    { "id": "ui", "type": "frontend", "label": "Web UI", "sublabel": "Next.js, nginx :3400", "pos": [240, 300], "size": [130, 64] },
+    { "id": "api", "type": "backend", "label": "FastAPI", "sublabel": "REST, SSE, voice socket", "pos": [240, 140], "size": [130, 64] },
+    { "id": "redis", "type": "messagebus", "label": "Redis", "sublabel": "call lock, live events", "pos": [40, 140], "size": [120, 64] },
+    { "id": "voice", "type": "backend", "label": "Voice session", "sublabel": "turns, barge-in", "tag": "Silero VAD", "pos": [440, 300], "size": [130, 64] },
+    { "id": "stt", "type": "backend", "label": "Speech to text", "sublabel": "faster-whisper", "pos": [440, 140], "size": [130, 64] },
+    { "id": "tts", "type": "backend", "label": "Text to speech", "sublabel": "Piper voices", "pos": [440, 460], "size": [130, 64] },
+    { "id": "agent", "type": "backend", "label": "LangGraph agent", "sublabel": "budgets, approval pause", "tag": "checkpointed", "pos": [680, 300], "size": [140, 64] },
+    { "id": "tools", "type": "backend", "label": "Agent tools", "sublabel": "identity, accounts, credits", "pos": [920, 300], "size": [130, 64] },
+    { "id": "knowledge", "type": "backend", "label": "Policy search", "sublabel": "full text, citations", "pos": [920, 460], "size": [130, 64] },
+    { "id": "llm", "type": "cloud", "label": "Model provider", "sublabel": "optional, via gateway", "pos": [680, 620], "size": [140, 64] },
+    { "id": "db", "type": "database", "label": "PostgreSQL 16", "sublabel": "row-level security", "pos": [1110, 300], "size": [130, 64] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "API process: voice, speech, agent", "wraps": ["voice", "stt", "tts", "agent", "tools", "knowledge"] }
+  ],
+  "connections": [
+    { "id": "customer-to-ui", "from": "customer", "to": "ui", "label": "HTTPS", "variant": "emphasis" },
+    { "id": "staff-to-ui", "from": "staff", "to": "ui", "label": "HTTPS", "fromSide": "right", "toSide": "bottom" },
+    { "id": "ui-to-api", "from": "ui", "to": "api", "label": "REST, SSE", "fromSide": "top", "toSide": "bottom" },
+    { "id": "api-to-redis", "from": "api", "to": "redis", "label": "locks, events", "variant": "dashed", "fromSide": "left", "toSide": "right" },
+    { "id": "api-to-voice", "from": "api", "to": "voice", "label": "audio, turns", "variant": "emphasis", "fromSide": "right", "toSide": "left" },
+    { "id": "voice-to-stt", "from": "voice", "to": "stt", "label": "audio to text", "fromSide": "top", "toSide": "bottom" },
+    { "id": "voice-to-agent", "from": "voice", "to": "agent", "label": "customer turn", "variant": "emphasis" },
+    { "id": "agent-to-tts", "from": "agent", "to": "tts", "label": "reply sentences", "variant": "dashed", "fromSide": "bottom", "toSide": "right" },
+    { "id": "tts-to-voice", "from": "tts", "to": "voice", "label": "speech audio", "variant": "dashed", "fromSide": "top", "toSide": "bottom" },
+    { "id": "agent-to-llm", "from": "agent", "to": "llm", "label": "model calls", "fromSide": "bottom", "toSide": "top" },
+    { "id": "agent-to-tools", "from": "agent", "to": "tools", "label": "tool calls" },
+    { "id": "tools-to-knowledge", "from": "tools", "to": "knowledge", "label": "policy search", "fromSide": "bottom", "toSide": "top" },
+    { "id": "tools-to-db", "from": "tools", "to": "db", "label": "SQL", "variant": "security" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Voice path", "items": ["Browser sends 16 kHz audio over one WebSocket", "Silero VAD ends a turn after 600 ms of silence", "Barge-in stops speech and queued audio"] },
+    { "dot": "emerald", "title": "Agent", "items": ["Account tools need a verified caller first", "Credits above the limit pause for a supervisor", "Budgets end a call: model calls, tokens, cost, minutes"] },
+    { "dot": "violet", "title": "Data and control", "items": ["Tenant rows under forced row-level security", "Redis holds the per-call turn lock and live event streams", "CRM note checked against the transcript; unsupported sentences removed"] }
+  ]
+}

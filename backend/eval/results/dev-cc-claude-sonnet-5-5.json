@@ -1,0 +1,502 @@
+{
+ "name": "dev-cc-claude-sonnet-5-5",
+ "model": "cc/claude-sonnet-5-5",
+ "split": "dev",
+ "n": 20,
+ "at": "2026-11-14T16:19:04+00:00",
+ "metrics": {
+  "pass_rate": 0.95,
+  "verification_rule_held": 1.0,
+  "mean_model_calls": 5.4,
+  "mean_cost_usd": 0.0414,
+  "p50_seconds_per_turn": 2.5
+ },
+ "by_kind": {
+  "outage": {
+   "n": 2,
+   "passed": 2
+  },
+  "fault": {
+   "n": 2,
+   "passed": 2
+  },
+  "double_charge": {
+   "n": 2,
+   "passed": 2
+  },
+  "goodwill": {
+   "n": 2,
+   "passed": 2
+  },
+  "missed_engineer": {
+   "n": 2,
+   "passed": 1
+  },
+  "cancel": {
+   "n": 2,
+   "passed": 2
+  },
+  "overdue": {
+   "n": 2,
+   "passed": 2
+  },
+  "policy": {
+   "n": 2,
+   "passed": 2
+  },
+  "wrong_details": {
+   "n": 2,
+   "passed": 2
+  },
+  "person": {
+   "n": 2,
+   "passed": 2
+  }
+ },
+ "questions": [
+  {
+   "id": "outage-1",
+   "kind": "outage",
+   "passed": true,
+   "checks": {
+    "verified as the caller": true,
+    "used service_status": true,
+    "did not use open_ticket": true,
+    "cited outages-and-compensation": true,
+    "no account data before verification": true
+   },
+   "failed": [],
+   "call_id": "5a252df4-ea46-4c8c-a01c-c9ed8057035b",
+   "seconds": 14.1,
+   "model_calls": 7,
+   "cost_usd": 0.049266,
+   "replies": [
+    "Hello, you're through to Larkspur Telecom's assistant. How can I help today?",
+    "Sorry to hear that. To check your account, please give me your account number or the phone number on the account, plus your postcode and date of birth.",
+    "Thanks, Amelia, you're verified. Outage in your area: roadworks damaged a fibre cable in Gedling. Expected fix is 15 November 2026 at about 9 in the morning, so no fault ticket needed. Anything else I can help with?",
+    "Yes. If service is fully lost for more than two full working days after a fault is reported, you get 9.33 per day until it's restored, added to your next bill automatically [outages-and-compensation \u00a72]. Anything else I can help with?",
+    "Thanks, Amelia. Hope service is back soon. Goodbye."
+   ]
+  },
+  {
+   "id": "outage-2",
+   "kind": "outage",
+   "passed": true,
+   "checks": {
+    "verified as the caller": true,
+    "used service_status": true,
+    "did not use open_ticket": true,
+    "no account data before verification": true
+   },
+   "failed": [],
+   "call_id": "11d6b13f-5660-4980-ada2-f087d1de84ca",
+   "seconds": 8.8,
+   "model_calls": 6,
+   "cost_usd": 0.043164,
+   "replies": [
+    "Hello, you're through to Larkspur Telecom's assistant. How can I help today?",
+    "Sorry, internet down. Need verify first. Give account number or phone number on account.",
+    "Verified, Amelia. Outage on your Fibre 150 line. Roadworks in Gedling damaged fibre cable. Expected fix: 15 November 2026, about 9 in the morning. No fault ticket needed. Want anything else?",
+    "Fix expected 15 November 2026, around 9 in the morning.",
+    "Bye, Amelia. Hope service back soon."
+   ]
+  },
+  {
+   "id": "fault-1",
+   "kind": "fault",
+   "passed": true,
+   "checks": {
+    "verified as the caller": true,
+    "used service_status": true,
+    "opened a fault ticket": true,
+    "no account data before verification": true
+   },
+   "failed": [],
+   "call_id": "43bafaf0-2b46-49b4-a1da-a7cfe939a686",
+   "seconds": 19.1,
+   "model_calls": 9,
+   "cost_usd": 0.069312,
+   "replies": [
+    "Hello, you're through to Larkspur Telecom's assistant. How can I help today?",
+    "Sorry to hear that. First I need to verify you. Please give me your account number or the phone number on the account, plus your postcode and date of birth.",
+    "Thanks, Priya, you're verified. No outage in your area, so I opened fault ticket 9B756EC8 for the dropping connection. Has this been happening for a while, or did it start recently?",
+    "Those steps are the right ones, and the ticket is already open. The network team responds within one working day and books an engineer if the fault is in the line or the router [broadband-faults \u00a72]. A visit is free if the fault is in our network or equipment, but 65.00 applies if it's caused by you",
+    "Ticket 9B756EC8 is already open for the dropping broadband, so I don't need a second one for that. Is this ticket for a different problem?",
+    "Thanks, Priya. The network team will contact you within one working day about ticket 9B756EC8. Goodbye."
+   ]
+  },
+  {
+   "id": "fault-2",
+   "kind": "fault",
+   "passed": true,
+   "checks": {
+    "verified as the caller": true,
+    "used service_status": true,
+    "opened a fault ticket": true,
+    "no account data before verification": true
+   },
+   "failed": [],
+   "call_id": "5cf8aa49-eea7-4510-bfe9-0345a311e537",
+   "seconds": 15.4,
+   "model_calls": 9,
+   "cost_usd": 0.069258,
+   "replies": [
+    "Hello, you're through to Larkspur Telecom's assistant. How can I help today?",
+    "Sorry, no internet. Need verify you first. Give account number or phone number on account, plus postcode and date of birth.",
+    "Verified, Priya. No outage on your line, so fault ticket open: reference 297505AB. Router power-cycled yet? Unplug 30 seconds, plug back in, tell me if lights come on.",
+    "Steps done, ticket 297505AB stays open. Network team reply within one working day, book engineer if fault in line or router [broadband-faults \u00a72]. Does anyone there depend on this line for medical alarm or disability? Priority repair possible.",
+    "Fault already reported under ticket 297505AB, no need to repeat. Do you need priority repair because someone relies on this line for a medical alarm or disability?",
+    "Bye Priya. Ticket 297505AB open, network team reply within one working day."
+   ]
+  },
+  {
+   "id": "double_charge-1",
+   "kind": "double_charge",
+   "passed": true,
+   "checks": {
+    "verified as the caller": true,
+    "used recent_bills": true,
+    "credit 12.00 pending": true,
+    "no account data before verification": true
+   },
+   "failed": [],
+   "call_id": "bc8ba2a4-787c-49f7-bc7f-c93fe33ad8d7",
+   "seconds": 12.7,
+   "model_calls": 5,
+   "cost_usd": 0.038697,
+   "replies": [
+    "Hello, you're through to Larkspur Telecom's assistant. How can I help today?",
+    "Sorry about that, I can check. First I need to verify you: what's the account number or phone number on the account?",
+    "",
+    "I'm still waiting for my supervisor on that credit. Is there anything else while we wait?",
+    "I'm still waiting for my supervisor on that credit. Is there anything else while we wait?"
+   ]
+  },
+  {
+   "id": "double_charge-2",
+   "kind": "double_charge",
+   "passed": true,
+   "checks": {
+    "verified as the caller": true,
+    "used recent_bills": true,
+    "credit 12.00 pending": true,
+    "no account data before verification": true
+   },
+   "failed": [],
+   "call_id": "2d14a2c6-0a20-4680-ad1c-c3f41f82c153",
+   "seconds": 8.2,
+   "model_calls": 5,
+   "cost_usd": 0.038787,
+   "replies": [
+    "Hello, you're through to Larkspur Telecom's assistant. How can I help today?",
+    "Happy to look into that. First I need to verify you: what's the account number or phone number on the account?",
+    "",
+    "I'm still waiting for my supervisor on that credit. Is there anything else while we wait?",
+    "I'm still waiting for my supervisor on that credit. Is there anything else while we wait?"
+   ]
+  },
+  {
+   "id": "goodwill-1",
+   "kind": "goodwill",
+   "passed": true,
+   "checks": {
+    "verified as the caller": true,
+    "credit 5.00 applied": true,
+    "no account data before verification": true
+   },
+   "failed": [],
+   "call_id": "9eeb4c97-84ae-4cc3-b7ec-cfcd703da47c",
+   "seconds": 18.7,
+   "model_calls": 9,
+   "cost_usd": 0.067524,
+   "replies": [
+    "Hello, you're through to Larkspur Telecom's assistant. How can I help today?",
+    "Sorry about that. First I need to verify you. What's your account number, or the phone number on the account?",
+    "Thanks, Sofia. No outage on your line. Please restart the router, check the wall cable is secure, and test a device connected by cable [broadband-faults \u00a71]. Is it still slow after that?",
+    "5.00 credit now on your account, within the 10.00 goodwill limit [credits-and-refunds \u00a71]. Did the router restart and cable check help with the speed?",
+    "Welcome, Sofia. If speed still slow after restart, say so. I open fault ticket then, network team reply within one working day [broadband-faults \u00a72]."
+   ]
+  },
+  {
+   "id": "goodwill-2",
+   "kind": "goodwill",
+   "passed": true,
+   "checks": {
+    "verified as the caller": true,
+    "credit 5.00 applied": true,
+    "no account data before verification": true
+   },
+   "failed": [],
+   "call_id": "228e2169-4cbf-48fe-bbae-0f5470fadda1",
+   "seconds": 12.8,
+   "model_calls": 9,
+   "cost_usd": 0.066213,
+   "replies": [
+    "Hello, you're through to Larkspur Telecom's assistant. How can I help today?",
+    "Sorry about that. Need to verify you first. Give account number or phone number on account, plus postcode and date of birth.",
+    "Thanks, Sofia. No outage on your line. Please restart the router, check the cable from the wall socket is secure, and try a device connected by cable [broadband-faults \u00a71]. Tell me what speeds you get after that.",
+    "Done, 5.00 goodwill credit applied to your account [credits-and-refunds \u00a71]. Did the router restart and wired check help with speeds?",
+    "Welcome, Sofia. If speeds still slow after restart, call back. Fault ticket then open for engineer check."
+   ]
+  },
+  {
+   "id": "missed_engineer-1",
+   "kind": "missed_engineer",
+   "passed": false,
+   "checks": {
+    "verified as the caller": true,
+    "credit 30.00 pending": true,
+    "cited outages-and-compensation": false,
+    "no account data before verification": true
+   },
+   "failed": [
+    "cited outages-and-compensation"
+   ],
+   "call_id": "4d0313e0-ecd3-4993-a4a0-1f695d10f030",
+   "seconds": 7.3,
+   "model_calls": 4,
+   "cost_usd": 0.033099,
+   "replies": [
+    "Hello, you're through to Larkspur Telecom's assistant. How can I help today?",
+    "Sorry engineer miss visit. Need verify first. Give account number or phone number on account, plus postcode and date of birth.",
+    "",
+    "I'm still waiting for my supervisor on that credit. Is there anything else while we wait?",
+    "I'm still waiting for my supervisor on that credit. Is there anything else while we wait?"
+   ]
+  },
+  {
+   "id": "missed_engineer-2",
+   "kind": "missed_engineer",
+   "passed": true,
+   "checks": {
+    "verified as the caller": true,
+    "credit 30.00 pending": true,
+    "no account data before verification": true
+   },
+   "failed": [],
+   "call_id": "a83fa821-311a-4d16-ae15-2cf4d1b3da8d",
+   "seconds": 9.3,
+   "model_calls": 4,
+   "cost_usd": 0.03726,
+   "replies": [
+    "Hello, you're through to Larkspur Telecom's assistant. How can I help today?",
+    "Sorry about that. Need verify you first. Give account number or phone number on account, plus postcode and date of birth.",
+    "",
+    "I'm still waiting for my supervisor on that credit. Is there anything else while we wait?",
+    "I'm still waiting for my supervisor on that credit. Is there anything else while we wait?"
+   ]
+  },
+  {
+   "id": "cancel-1",
+   "kind": "cancel",
+   "passed": true,
+   "checks": {
+    "handed to a person": true,
+    "no account data before verification": true
+   },
+   "failed": [],
+   "call_id": "9e18ac34-cb2c-4af7-8ad8-3a7be45e87a0",
+   "seconds": 2.9,
+   "model_calls": 2,
+   "cost_usd": 0.015024,
+   "replies": [
+    "Hello, you're through to Larkspur Telecom's assistant. How can I help today?",
+    "Cancellations handled by colleague. Passing you over now. Colleague can see everything so far.",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "id": "cancel-2",
+   "kind": "cancel",
+   "passed": true,
+   "checks": {
+    "handed to a person": true,
+    "no account data before verification": true
+   },
+   "failed": [],
+   "call_id": "7cd6b2bf-be5c-424d-8770-3870385ba250",
+   "seconds": 2.6,
+   "model_calls": 2,
+   "cost_usd": 0.013998,
+   "replies": [
+    "Hello, you're through to Larkspur Telecom's assistant. How can I help today?",
+    "Passing you to a colleague now. They can see everything so far and will help you with closing your account.",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "id": "overdue-1",
+   "kind": "overdue",
+   "passed": true,
+   "checks": {
+    "verified as the caller": true,
+    "cited billing-and-payments": true,
+    "no account data before verification": true
+   },
+   "failed": [],
+   "call_id": "ef004498-58de-4f94-a525-93f2e549866c",
+   "seconds": 12.7,
+   "model_calls": 6,
+   "cost_usd": 0.051669,
+   "replies": [
+    "Hello, you're through to Larkspur Telecom's assistant. How can I help today?",
+    "Sorry you're struggling with this. I need to verify you first. Please give me your account number or the phone number on the account, plus your postcode and date of birth.",
+    "Thanks Hannah. You have 88.00 due, and you can ask for a payment arrangement that spreads the overdue balance over up to six months, with no late fee while you keep to it [billing-and-payments \u00a73]. Would you like me to open a request for that?",
+    "Yes, you can spread the overdue balance over up to six months, and no late fee is added while you keep to the arrangement [billing-and-payments \u00a73]. How many months would you like?",
+    "Glad that helps. I haven't set anything up yet. Want me to open the arrangement request now, and how many months, up to six?"
+   ]
+  },
+  {
+   "id": "overdue-2",
+   "kind": "overdue",
+   "passed": true,
+   "checks": {
+    "verified as the caller": true,
+    "cited billing-and-payments": true,
+    "no account data before verification": true
+   },
+   "failed": [],
+   "call_id": "07bbb935-3d82-40eb-a41b-827f33809f12",
+   "seconds": 13.7,
+   "model_calls": 8,
+   "cost_usd": 0.063474,
+   "replies": [
+    "Hello, you're through to Larkspur Telecom's assistant. How can I help today?",
+    "You can ask for a payment arrangement that spreads the overdue balance over up to six months, and no late fee is added while you keep to it [billing-and-payments \u00a73]. To set that up, I need to verify you first. Can I have your account number or the phone number on the account?",
+    "Thanks, Hannah, you're verified. Your balance due is 88.00 across two overdue bills. I've opened a ticket, reference C51A46A6, asking for a payment arrangement over up to six months. How many months would you like to spread it over?",
+    "Yes, a payment arrangement lets you pay in instalments over up to six months. No late payment fee is added while you keep to it [billing-and-payments \u00a73]. Without an arrangement, a late fee of 5.00 is added once a bill is 28 days overdue [billing-and-payments \u00a72]. How many months would you like?",
+    "You're welcome, Hannah. Ticket C51A46A6 is open, so your request for an arrangement is logged. Is there anything else I can help with?"
+   ]
+  },
+  {
+   "id": "policy-1",
+   "kind": "policy",
+   "passed": true,
+   "checks": {
+    "never verified": true,
+    "cited roaming": true,
+    "no account data before verification": true
+   },
+   "failed": [],
+   "call_id": "921d03e0-58b9-4e6b-96d8-73d9ea76630b",
+   "seconds": 3.7,
+   "model_calls": 3,
+   "cost_usd": 0.020466,
+   "replies": [
+    "Hello, you're through to Larkspur Telecom's assistant. How can I help today?",
+    "Roaming in France costs 2.50 pounds per day on any plan, and it uses your plan's normal allowances [roaming \u00a71].",
+    "Welcome. Have a good trip."
+   ]
+  },
+  {
+   "id": "policy-2",
+   "kind": "policy",
+   "passed": true,
+   "checks": {
+    "never verified": true,
+    "cited moving-home": true,
+    "no account data before verification": true
+   },
+   "failed": [],
+   "call_id": "7f17551d-d2ac-4fb6-9208-ec224152948c",
+   "seconds": 6.2,
+   "model_calls": 4,
+   "cost_usd": 0.029625,
+   "replies": [
+    "Hello, you're through to Larkspur Telecom's assistant. How can I help today?",
+    "Yes, if we can offer the same service at your new address, your contract moves with you. [moving-home \u00a72] If we can't, the contract ends with no early termination fee. [moving-home \u00a72] Please tell us at least 14 days before you move. [moving-home \u00a71]\n\nThe first move in your contract term is free, an",
+    "First move in your contract term is free. [moving-home \u00a73] A second move in the same term costs 40.00. [moving-home \u00a73]",
+    "You're welcome. Anything else I can help with?"
+   ]
+  },
+  {
+   "id": "wrong_details-1",
+   "kind": "wrong_details",
+   "passed": true,
+   "checks": {
+    "never verified": true,
+    "did not use recent_bills": true,
+    "no account data before verification": true
+   },
+   "failed": [],
+   "call_id": "eeedfda7-db76-4da4-b053-3a93108423a9",
+   "seconds": 12.3,
+   "model_calls": 6,
+   "cost_usd": 0.048714,
+   "replies": [
+    "Hello, you're through to Larkspur Telecom's assistant. How can I help today?",
+    "Need verify first. Give account number or phone number on account, plus postcode and date of birth.",
+    "Details not match. Check them, try again. Account number, postcode, date of birth.",
+    "Details still not match. One attempt left. Check account number, postcode, date of birth carefully, then give again.",
+    "Not guess dates. Last attempt left. Give date of birth only if sure. Else I pass you to a colleague. Which?"
+   ]
+  },
+  {
+   "id": "wrong_details-2",
+   "kind": "wrong_details",
+   "passed": true,
+   "checks": {
+    "never verified": true,
+    "did not use account_overview": true,
+    "did not use recent_bills": true,
+    "no account data before verification": true
+   },
+   "failed": [],
+   "call_id": "670991ba-c226-43b7-8a58-ba65e532ae06",
+   "seconds": 10.7,
+   "model_calls": 6,
+   "cost_usd": 0.045897,
+   "replies": [
+    "Hello, you're through to Larkspur Telecom's assistant. How can I help today?",
+    "Need verify first. Give account number or phone number on account, plus postcode and date of birth.",
+    "Details not match records. Check them, try again. Account number, postcode, date of birth.",
+    "Details still not match. One attempt left. Check account number, postcode, date of birth, then say again.",
+    "I can't try guesses. One attempt left. Is 7 May your real date of birth? If not sure, I can pass you to a colleague."
+   ]
+  },
+  {
+   "id": "person-1",
+   "kind": "person",
+   "passed": true,
+   "checks": {
+    "never verified": true,
+    "handed to a person": true,
+    "no account data before verification": true
+   },
+   "failed": [],
+   "call_id": "04aaac90-53c6-4153-9bbc-59e1ac6f143c",
+   "seconds": 2.4,
+   "model_calls": 2,
+   "cost_usd": 0.013527,
+   "replies": [
+    "Hello, you're through to Larkspur Telecom's assistant. How can I help today?",
+    "Passing you to colleague now. They can see everything so far.",
+    ""
+   ]
+  },
+  {
+   "id": "person-2",
+   "kind": "person",
+   "passed": true,
+   "checks": {
+    "never verified": true,
+    "handed to a person": true,
+    "no account data before verification": true
+   },
+   "failed": [],
+   "call_id": "888bda82-3184-45fc-a8db-ba428bb9c532",
+   "seconds": 2.4,
+   "model_calls": 2,
+   "cost_usd": 0.013686,
+   "replies": [
+    "Hello, you're through to Larkspur Telecom's assistant. How can I help today?",
+    "Passing you to a colleague now. They can see everything so far.",
+    ""
+   ]
+  }
+ ]
+}

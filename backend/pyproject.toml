@@ -1,0 +1,63 @@
+[project]
+name = "voiceops"
+version = "1.0.0"
+description = "Voice customer service with a LangGraph agent, local speech, and people in the loop"
+requires-python = ">=3.13"
+dependencies = [
+  "fastapi",
+  "uvicorn[standard]",
+  "pydantic",
+  "pydantic-settings",
+  "sqlalchemy[asyncio]",
+  "psycopg[binary,pool]",
+  "alembic",
+  "redis",
+  "httpx",
+  "sqlglot",
+  "cryptography",
+  "prometheus-client",
+  "opentelemetry-sdk",
+  "opentelemetry-exporter-otlp-proto-http",
+  "opentelemetry-proto>=1.45.2",
+  "regex>=2026.11.9",
+  "jsonschema>=4.26.0",
+  "python-multipart>=0.0.33",
+  "langgraph>=1.2",
+  "langgraph-checkpoint-postgres>=3.2",
+  "faster-whisper>=1.2",
+  "piper-tts>=1.8",
+  "numpy>=2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "ruff",
+    "locust",
+    "pyyaml>=6.0.3",
+    "websockets>=17.4",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope = "session"
+testpaths = ["tests"]
+markers = ["live: needs a real LLM gateway (NINEROUTER_API_KEY)", "speech: needs the speech models (runs in the test image: make test-speech)"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S", "ASYNC"]
+ignore = ["S101", "B008", "E501"]  # line length is left to the formatter
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S", "ASYNC", "F811"]
+"seed/*" = ["S311", "S608"]
+"alembic/*" = ["S608"]
+"eval/*" = ["S"]
+"load/*" = ["S"]
+[tool.ruff.lint.isort]
+known-third-party = ["alembic"]
+known-first-party = ["app", "seed", "eval"]

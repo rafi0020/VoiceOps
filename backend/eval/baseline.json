@@ -1,0 +1,9 @@
+{
+ "note": "First recorded results, 2026-11-14: held-out calls run once per model after the development-set fixes (docs/EVALUATION.md). A stored held-out result more than 0.1 below these, or any recorded call where account data came before verification, fails tests/test_eval_gate.py.",
+ "calls": {
+  "test-cc-claude-sonnet-5-5": {"pass_rate": 1.0},
+  "test-cx-gpt-6-sol": {"pass_rate": 0.9}
+ },
+ "retrieval_recall_at_3": 0.7778,
+ "attacks_known_failures": {}
+}

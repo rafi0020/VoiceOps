@@ -1,0 +1,131 @@
+# VoiceOps:  docker compose up --build
+#   UI  http://localhost:3400      API docs  http://localhost:8400/docs
+name: voiceops
+
+x-db-passwords: &db-passwords
+  VOICEOPS_OWNER_PASSWORD: ${VOICEOPS_OWNER_PASSWORD:-voiceops_owner}
+  VOICEOPS_APP_PASSWORD: ${VOICEOPS_APP_PASSWORD:-voiceops_app}
+
+x-backend-env: &backend-env
+  DATABASE_URL: postgresql+psycopg://voiceops_app:${VOICEOPS_APP_PASSWORD:-voiceops_app}@pgbouncer:6432/voiceops
+  DATABASE_URL_OWNER: postgresql+psycopg://voiceops_owner:${VOICEOPS_OWNER_PASSWORD:-voiceops_owner}@db:5432/voiceops
+  REDIS_URL: redis://redis:6379/0
+  SECRET_KEY: ${SECRET_KEY:-local-demo-secret-change-me}
+  TRUSTED_PROXY: ${TRUSTED_PROXY:-true}
+  ALLOW_SIGNUP: ${ALLOW_SIGNUP:-true}
+  CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3400}
+  COOKIE_SECURE: ${COOKIE_SECURE:-false}
+  SEED_DEMO: ${SEED_DEMO:-true}
+  DEMO_CUSTOMERS: ${DEMO_CUSTOMERS:-200}
+  LLM_PROVIDER: ${LLM_PROVIDER:-stub}
+  LLM_MODEL: ${LLM_MODEL:-}
+  LLM_API_KEY: ${LLM_API_KEY:-}
+  LLM_BASE_URL: ${LLM_BASE_URL:-}
+  LLM_FALLBACK_MODEL: ${LLM_FALLBACK_MODEL:-}
+  LLM_PRICE_INPUT_PER_MTOK: ${LLM_PRICE_INPUT_PER_MTOK:-3.0}
+  LLM_PRICE_OUTPUT_PER_MTOK: ${LLM_PRICE_OUTPUT_PER_MTOK:-15.0}
+  ALLOW_PRIVATE_LLM_URLS: ${ALLOW_PRIVATE_LLM_URLS:-true}
+  CALL_MAX_MODEL_CALLS: ${CALL_MAX_MODEL_CALLS:-80}
+  TURN_MAX_STEPS: ${TURN_MAX_STEPS:-6}
+  CALL_MAX_TOKENS: ${CALL_MAX_TOKENS:-200000}
+  CALL_MAX_COST_USD: ${CALL_MAX_COST_USD:-0.50}
+  ORG_DAILY_COST_USD: ${ORG_DAILY_COST_USD:-20.00}
+  GLOBAL_DAILY_COST_USD: ${GLOBAL_DAILY_COST_USD:-200.00}
+  ORG_MAX_LIVE_CALLS: ${ORG_MAX_LIVE_CALLS:-20}
+  CREDIT_LIMIT: ${CREDIT_LIMIT:-10.00}
+  CALLS_PER_MINUTE: ${CALLS_PER_MINUTE:-10}
+  CUSTOMER_CREDIT_30D: ${CUSTOMER_CREDIT_30D:-25.00}
+  CALL_MAX_TURNS: ${CALL_MAX_TURNS:-200}
+  CALL_IDLE_MINUTES: ${CALL_IDLE_MINUTES:-30}
+  CALL_MAX_MINUTES: ${CALL_MAX_MINUTES:-20}
+  SESSION_HOURS: ${SESSION_HOURS:-12}
+  DB_POOL_SIZE: ${DB_POOL_SIZE:-10}
+  LLM_MAX_CONCURRENCY: ${LLM_MAX_CONCURRENCY:-16}
+  VAD_SILENCE_MS: ${VAD_SILENCE_MS:-600}
+  LOG_LEVEL: ${LOG_LEVEL:-INFO}
+  STT_PROVIDER: ${STT_PROVIDER:-local}
+  STT_MODEL: ${STT_MODEL:-base.en}
+  STT_DEVICE: ${STT_DEVICE:-cpu}
+  STT_COMPUTE_TYPE: ${STT_COMPUTE_TYPE:-int8}
+  STT_BASE_URL: ${STT_BASE_URL:-}
+  STT_API_KEY: ${STT_API_KEY:-}
+  TTS_PROVIDER: ${TTS_PROVIDER:-local}
+  TTS_VOICE: ${TTS_VOICE:-en_US-lessac-medium}
+  TTS_MODEL: ${TTS_MODEL:-}
+  TTS_BASE_URL: ${TTS_BASE_URL:-}
+  TTS_API_KEY: ${TTS_API_KEY:-}
+  METRICS_TOKEN: ${METRICS_TOKEN:-}
+  OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-}
+  OTEL_EXPORTER_OTLP_HEADERS: ${OTEL_EXPORTER_OTLP_HEADERS:-}
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      <<: *db-passwords
+    command: ["postgres", "-c", "max_connections=200", "-c", "shared_buffers=512MB"]
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./infra/postgres/init.sh:/docker-entrypoint-initdb.d/init.sh:ro
+    ports: ["127.0.0.1:55462:5432"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U postgres -d voiceops"]
+      interval: 3s
+      retries: 30
+
+  pgbouncer:
+    build: ./infra/pgbouncer
+    environment:
+      <<: *db-passwords
+    ports: ["127.0.0.1:56462:6432"]
+    depends_on:
+      db: { condition: service_healthy }
+
+  redis:
+    image: redis:7-alpine
+    ports: ["127.0.0.1:56409:6379"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      retries: 30
+
+  migrate:   # applies migrations and, when SEED_DEMO=true, loads the demo data; then exits
+    build: { context: ./backend, target: app }
+    command: ["python", "-m", "app.bootstrap"]
+    environment: *backend-env
+    depends_on:
+      db: { condition: service_healthy }
+      redis: { condition: service_healthy }
+
+  api:
+    build: { context: ./backend, target: app }
+    environment: *backend-env
+    extra_hosts: ["host.docker.internal:host-gateway"]   # reach a model gateway or Ollama on the host
+    ports: ["127.0.0.1:8400:8000"]   # API docs for the person running it; everyone else goes through web
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      pgbouncer: { condition: service_started }
+      redis: { condition: service_healthy }
+
+  web:
+    build: ./frontend
+    ports: ["${WEB_BIND:-127.0.0.1}:3400:80"]   # plain HTTP: this machine only unless WEB_BIND says otherwise (put TLS in front first)
+    depends_on: [api]
+
+  tests:   # tests that need the speech models baked into the image:  make test-speech
+    profiles: ["test"]
+    build: { context: ./backend, target: test }
+    command: ["python", "-m", "pytest", "-q", "-m", "speech"]
+    environment:
+      DATABASE_URL: postgresql+psycopg://voiceops_app:${VOICEOPS_APP_PASSWORD:-voiceops_app}@pgbouncer:6432/voiceops_test
+      DATABASE_URL_OWNER: postgresql+psycopg://voiceops_owner:${VOICEOPS_OWNER_PASSWORD:-voiceops_owner}@db:5432/voiceops_test
+      REDIS_URL: redis://redis:6379/1
+    volumes: ["./backend/tests:/srv/tests:ro", "./backend/eval:/srv/eval"]   # evaluation results are written back
+    extra_hosts: ["host.docker.internal:host-gateway"]   # the model gateway on the host, for live tests
+    depends_on:
+      db: { condition: service_healthy }
+      redis: { condition: service_healthy }
+
+volumes:
+  pgdata:

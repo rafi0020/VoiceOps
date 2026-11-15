@@ -1,0 +1,603 @@
+{
+ "name": "wer-base.en-cpu",
+ "model": "base.en",
+ "device": "cpu",
+ "compute_type": "int8",
+ "at": "2026-11-14T16:00:49+00:00",
+ "n": 24,
+ "by_condition": {
+  "clean": {
+   "wer": 0.0821,
+   "real_time_factor": 0.608,
+   "p50_stt_ms": 1377.0
+  },
+  "noise 15 dB": {
+   "wer": 0.0952,
+   "real_time_factor": 0.578,
+   "p50_stt_ms": 1325.0
+  },
+  "noise 5 dB": {
+   "wer": 0.0902,
+   "real_time_factor": 0.591,
+   "p50_stt_ms": 1351.0
+  }
+ },
+ "rows": [
+  {
+   "sentence": "Hi, my broadband has been down since this morning.",
+   "condition": "clean",
+   "heard": "Hi, my broadband has been down since this morning.",
+   "wer": 0.0,
+   "stt_ms": 1371,
+   "audio_ms": 2519
+  },
+  {
+   "sentence": "Hi, my broadband has been down since this morning.",
+   "condition": "noise 15 dB",
+   "heard": "Hi, my broadband has been down since this morning.",
+   "wer": 0.0,
+   "stt_ms": 1403,
+   "audio_ms": 2519
+  },
+  {
+   "sentence": "Hi, my broadband has been down since this morning.",
+   "condition": "noise 5 dB",
+   "heard": "Hi, my broadband has been down since this morning.",
+   "wer": 0.0,
+   "stt_ms": 1354,
+   "audio_ms": 2519
+  },
+  {
+   "sentence": "My account number is L T one zero zero zero zero one.",
+   "condition": "clean",
+   "heard": "My account number is LT100001.",
+   "wer": 0.4286,
+   "stt_ms": 1340,
+   "audio_ms": 3657
+  },
+  {
+   "sentence": "My account number is L T one zero zero zero zero one.",
+   "condition": "noise 15 dB",
+   "heard": "My account number is LT100001.",
+   "wer": 0.4286,
+   "stt_ms": 1333,
+   "audio_ms": 3657
+  },
+  {
+   "sentence": "My account number is L T one zero zero zero zero one.",
+   "condition": "noise 5 dB",
+   "heard": "My account number is L.T. 1,000,000,000,1.",
+   "wer": 0.1429,
+   "stt_ms": 1416,
+   "audio_ms": 3657
+  },
+  {
+   "sentence": "The postcode is N G four two A B.",
+   "condition": "clean",
+   "heard": "The postcode is NG-42-a-B.",
+   "wer": 0.25,
+   "stt_ms": 1543,
+   "audio_ms": 2287
+  },
+  {
+   "sentence": "The postcode is N G four two A B.",
+   "condition": "noise 15 dB",
+   "heard": "The postcode is NG-42-B.",
+   "wer": 0.375,
+   "stt_ms": 1267,
+   "audio_ms": 2287
+  },
+  {
+   "sentence": "The postcode is N G four two A B.",
+   "condition": "noise 5 dB",
+   "heard": "The postcode is NG42 of these.",
+   "wer": 0.625,
+   "stt_ms": 1258,
+   "audio_ms": 2287
+  },
+  {
+   "sentence": "My date of birth is the fourteenth of March nineteen eighty five.",
+   "condition": "clean",
+   "heard": "My date of birth is the 14th of March 1985.",
+   "wer": 0.3333,
+   "stt_ms": 1412,
+   "audio_ms": 3216
+  },
+  {
+   "sentence": "My date of birth is the fourteenth of March nineteen eighty five.",
+   "condition": "noise 15 dB",
+   "heard": "My date of birth is the 14th of March 1985.",
+   "wer": 0.3333,
+   "stt_ms": 1283,
+   "audio_ms": 3216
+  },
+  {
+   "sentence": "My date of birth is the fourteenth of March nineteen eighty five.",
+   "condition": "noise 5 dB",
+   "heard": "My date of birth is the 14th of March 1985.",
+   "wer": 0.3333,
+   "stt_ms": 1318,
+   "audio_ms": 3216
+  },
+  {
+   "sentence": "I think I've been charged twice for the sports add on.",
+   "condition": "clean",
+   "heard": "I think I've been charged twice for the sports add-on.",
+   "wer": 0.0,
+   "stt_ms": 1299,
+   "audio_ms": 2276
+  },
+  {
+   "sentence": "I think I've been charged twice for the sports add on.",
+   "condition": "noise 15 dB",
+   "heard": "I think I've been charged twice for the sports add-on.",
+   "wer": 0.0,
+   "stt_ms": 1301,
+   "audio_ms": 2276
+  },
+  {
+   "sentence": "I think I've been charged twice for the sports add on.",
+   "condition": "noise 5 dB",
+   "heard": "I think I've been charged twice for the sports add-on.",
+   "wer": 0.0,
+   "stt_ms": 1425,
+   "audio_ms": 2276
+  },
+  {
+   "sentence": "Can I speak to a real person please?",
+   "condition": "clean",
+   "heard": "Can I speak to a real person, please?",
+   "wer": 0.0,
+   "stt_ms": 1275,
+   "audio_ms": 1614
+  },
+  {
+   "sentence": "Can I speak to a real person please?",
+   "condition": "noise 15 dB",
+   "heard": "Can I speak to a real person, please?",
+   "wer": 0.0,
+   "stt_ms": 1255,
+   "audio_ms": 1614
+  },
+  {
+   "sentence": "Can I speak to a real person please?",
+   "condition": "noise 5 dB",
+   "heard": "Can I speak to a real person, please?",
+   "wer": 0.0,
+   "stt_ms": 1333,
+   "audio_ms": 1614
+  },
+  {
+   "sentence": "The engineer didn't turn up yesterday afternoon.",
+   "condition": "clean",
+   "heard": "The engineer didn't turn up yesterday after noon.",
+   "wer": 0.2857,
+   "stt_ms": 1365,
+   "audio_ms": 2194
+  },
+  {
+   "sentence": "The engineer didn't turn up yesterday afternoon.",
+   "condition": "noise 15 dB",
+   "heard": "The engineer didn't turn up yesterday afternoon.",
+   "wer": 0.0,
+   "stt_ms": 1229,
+   "audio_ms": 2194
+  },
+  {
+   "sentence": "The engineer didn't turn up yesterday afternoon.",
+   "condition": "noise 5 dB",
+   "heard": "The engineer didn't turn up yesterday afternoon.",
+   "wer": 0.0,
+   "stt_ms": 1376,
+   "audio_ms": 2194
+  },
+  {
+   "sentence": "How much does it cost to use my phone in France?",
+   "condition": "clean",
+   "heard": "How much does it cost to use my phone in France?",
+   "wer": 0.0,
+   "stt_ms": 1435,
+   "audio_ms": 2055
+  },
+  {
+   "sentence": "How much does it cost to use my phone in France?",
+   "condition": "noise 15 dB",
+   "heard": "How much does it cost to use my phone in France?",
+   "wer": 0.0,
+   "stt_ms": 1363,
+   "audio_ms": 2055
+  },
+  {
+   "sentence": "How much does it cost to use my phone in France?",
+   "condition": "noise 5 dB",
+   "heard": "How much did it cost to use my phone in France?",
+   "wer": 0.0909,
+   "stt_ms": 1351,
+   "audio_ms": 2055
+  },
+  {
+   "sentence": "I'd like to cancel my contract at the end of the month.",
+   "condition": "clean",
+   "heard": "I'd like to cancel my contract at the end of the month.",
+   "wer": 0.0,
+   "stt_ms": 1383,
+   "audio_ms": 2276
+  },
+  {
+   "sentence": "I'd like to cancel my contract at the end of the month.",
+   "condition": "noise 15 dB",
+   "heard": "I'd like to cancel my contract at the end of the month.",
+   "wer": 0.0,
+   "stt_ms": 1317,
+   "audio_ms": 2276
+  },
+  {
+   "sentence": "I'd like to cancel my contract at the end of the month.",
+   "condition": "noise 5 dB",
+   "heard": "I'd like to cancel my contract at the end of the month.",
+   "wer": 0.0,
+   "stt_ms": 1299,
+   "audio_ms": 2276
+  },
+  {
+   "sentence": "My router has a red light and nothing is working.",
+   "condition": "clean",
+   "heard": "My router has a red light and nothing is working.",
+   "wer": 0.0,
+   "stt_ms": 1361,
+   "audio_ms": 2299
+  },
+  {
+   "sentence": "My router has a red light and nothing is working.",
+   "condition": "noise 15 dB",
+   "heard": "My router has a red light and nothing is working.",
+   "wer": 0.0,
+   "stt_ms": 1425,
+   "audio_ms": 2299
+  },
+  {
+   "sentence": "My router has a red light and nothing is working.",
+   "condition": "noise 5 dB",
+   "heard": "My router has a red light and nothing is working.",
+   "wer": 0.0,
+   "stt_ms": 1351,
+   "audio_ms": 2299
+  },
+  {
+   "sentence": "Can I pay my overdue bill in instalments?",
+   "condition": "clean",
+   "heard": "Can I pay my overdue bill and installments?",
+   "wer": 0.25,
+   "stt_ms": 1230,
+   "audio_ms": 1950
+  },
+  {
+   "sentence": "Can I pay my overdue bill in instalments?",
+   "condition": "noise 15 dB",
+   "heard": "Can I pay my overdue bill and installments?",
+   "wer": 0.25,
+   "stt_ms": 1248,
+   "audio_ms": 1950
+  },
+  {
+   "sentence": "Can I pay my overdue bill in instalments?",
+   "condition": "noise 5 dB",
+   "heard": "Can I pay my overdue bill and installment?",
+   "wer": 0.25,
+   "stt_ms": 1220,
+   "audio_ms": 1950
+  },
+  {
+   "sentence": "I'm moving house next week, what do I need to do?",
+   "condition": "clean",
+   "heard": "I'm moving house next week. What do I need to do?",
+   "wer": 0.0,
+   "stt_ms": 1386,
+   "audio_ms": 2322
+  },
+  {
+   "sentence": "I'm moving house next week, what do I need to do?",
+   "condition": "noise 15 dB",
+   "heard": "I'm moving house next week. What do I need to do?",
+   "wer": 0.0,
+   "stt_ms": 1278,
+   "audio_ms": 2322
+  },
+  {
+   "sentence": "I'm moving house next week, what do I need to do?",
+   "condition": "noise 5 dB",
+   "heard": "I'm moving house next week. What do I need to do?",
+   "wer": 0.0,
+   "stt_ms": 1420,
+   "audio_ms": 2322
+  },
+  {
+   "sentence": "The phone number on the account is oh seven seven double oh nine double oh oh three.",
+   "condition": "clean",
+   "heard": "The phone number on the account is 077-090003.",
+   "wer": 0.2,
+   "stt_ms": 1321,
+   "audio_ms": 4331
+  },
+  {
+   "sentence": "The phone number on the account is oh seven seven double oh nine double oh oh three.",
+   "condition": "noise 15 dB",
+   "heard": "The phone number on the account is 077-009-0003.",
+   "wer": 0.3,
+   "stt_ms": 1434,
+   "audio_ms": 4331
+  },
+  {
+   "sentence": "The phone number on the account is oh seven seven double oh nine double oh oh three.",
+   "condition": "noise 5 dB",
+   "heard": "The phone number on the 8th count is 077 009 00003.",
+   "wer": 0.5,
+   "stt_ms": 1428,
+   "audio_ms": 4331
+  },
+  {
+   "sentence": "My internet keeps dropping out every few minutes.",
+   "condition": "clean",
+   "heard": "My internet keeps dropping out every few minutes.",
+   "wer": 0.0,
+   "stt_ms": 1346,
+   "audio_ms": 2252
+  },
+  {
+   "sentence": "My internet keeps dropping out every few minutes.",
+   "condition": "noise 15 dB",
+   "heard": "My internet keeps dropping out every few minutes.",
+   "wer": 0.0,
+   "stt_ms": 1280,
+   "audio_ms": 2252
+  },
+  {
+   "sentence": "My internet keeps dropping out every few minutes.",
+   "condition": "noise 5 dB",
+   "heard": "My internet keeps dropping out every few minutes.",
+   "wer": 0.0,
+   "stt_ms": 1300,
+   "audio_ms": 2252
+  },
+  {
+   "sentence": "Why is my bill higher than last month?",
+   "condition": "clean",
+   "heard": "Why is my bill higher than last month?",
+   "wer": 0.0,
+   "stt_ms": 1552,
+   "audio_ms": 1939
+  },
+  {
+   "sentence": "Why is my bill higher than last month?",
+   "condition": "noise 15 dB",
+   "heard": "Why is my bill higher than last month?",
+   "wer": 0.0,
+   "stt_ms": 1279,
+   "audio_ms": 1939
+  },
+  {
+   "sentence": "Why is my bill higher than last month?",
+   "condition": "noise 5 dB",
+   "heard": "Why is my bill higher than last month?",
+   "wer": 0.0,
+   "stt_ms": 1350,
+   "audio_ms": 1939
+  },
+  {
+   "sentence": "I'd like a goodwill credit for the slow speeds.",
+   "condition": "clean",
+   "heard": "I'd like a good will credit for the slow speeds.",
+   "wer": 0.2222,
+   "stt_ms": 1308,
+   "audio_ms": 2055
+  },
+  {
+   "sentence": "I'd like a goodwill credit for the slow speeds.",
+   "condition": "noise 15 dB",
+   "heard": "I'd like a good old credit for the slow speeds.",
+   "wer": 0.2222,
+   "stt_ms": 1377,
+   "audio_ms": 2055
+  },
+  {
+   "sentence": "I'd like a goodwill credit for the slow speeds.",
+   "condition": "noise 5 dB",
+   "heard": "I'd like a good old credit for the slow speeds.",
+   "wer": 0.2222,
+   "stt_ms": 1306,
+   "audio_ms": 2055
+  },
+  {
+   "sentence": "No, that's everything, thank you very much.",
+   "condition": "clean",
+   "heard": "No, that's everything. Thank you very much.",
+   "wer": 0.0,
+   "stt_ms": 1487,
+   "audio_ms": 2055
+  },
+  {
+   "sentence": "No, that's everything, thank you very much.",
+   "condition": "noise 15 dB",
+   "heard": "No, that's everything. Thank you very much.",
+   "wer": 0.0,
+   "stt_ms": 1404,
+   "audio_ms": 2055
+  },
+  {
+   "sentence": "No, that's everything, thank you very much.",
+   "condition": "noise 5 dB",
+   "heard": "No, that's everything. Thank you very much.",
+   "wer": 0.0,
+   "stt_ms": 1490,
+   "audio_ms": 2055
+  },
+  {
+   "sentence": "Sorry, could you say that again?",
+   "condition": "clean",
+   "heard": "Sorry, could you say that again?",
+   "wer": 0.0,
+   "stt_ms": 1399,
+   "audio_ms": 1428
+  },
+  {
+   "sentence": "Sorry, could you say that again?",
+   "condition": "noise 15 dB",
+   "heard": "Sorry, could you say that again?",
+   "wer": 0.0,
+   "stt_ms": 1360,
+   "audio_ms": 1428
+  },
+  {
+   "sentence": "Sorry, could you say that again?",
+   "condition": "noise 5 dB",
+   "heard": "Sorry, could you say that again?",
+   "wer": 0.0,
+   "stt_ms": 1247,
+   "audio_ms": 1428
+  },
+  {
+   "sentence": "My mother is in hospital and she uses a medical alarm on this line.",
+   "condition": "clean",
+   "heard": "My mother is in hospital and she uses a medical alarm on this line.",
+   "wer": 0.0,
+   "stt_ms": 1673,
+   "audio_ms": 3564
+  },
+  {
+   "sentence": "My mother is in hospital and she uses a medical alarm on this line.",
+   "condition": "noise 15 dB",
+   "heard": "My mother is in hospital and she uses a medical alarm on this line.",
+   "wer": 0.0,
+   "stt_ms": 1410,
+   "audio_ms": 3564
+  },
+  {
+   "sentence": "My mother is in hospital and she uses a medical alarm on this line.",
+   "condition": "noise 5 dB",
+   "heard": "My mother is in hospital and she uses a medical alarm on this line.",
+   "wer": 0.0,
+   "stt_ms": 1508,
+   "audio_ms": 3564
+  },
+  {
+   "sentence": "What time will the engineer arrive tomorrow?",
+   "condition": "clean",
+   "heard": "What time will the engineer arrive tomorrow?",
+   "wer": 0.0,
+   "stt_ms": 1253,
+   "audio_ms": 1858
+  },
+  {
+   "sentence": "What time will the engineer arrive tomorrow?",
+   "condition": "noise 15 dB",
+   "heard": "What time will the engineer arrive tomorrow?",
+   "wer": 0.0,
+   "stt_ms": 1249,
+   "audio_ms": 1858
+  },
+  {
+   "sentence": "What time will the engineer arrive tomorrow?",
+   "condition": "noise 5 dB",
+   "heard": "What time will the engineer arrive tomorrow?",
+   "wer": 0.0,
+   "stt_ms": 1304,
+   "audio_ms": 1858
+  },
+  {
+   "sentence": "I want to make a complaint about the service.",
+   "condition": "clean",
+   "heard": "I want to make a complaint about the service.",
+   "wer": 0.0,
+   "stt_ms": 1354,
+   "audio_ms": 1834
+  },
+  {
+   "sentence": "I want to make a complaint about the service.",
+   "condition": "noise 15 dB",
+   "heard": "I want to make a complaint about the service.",
+   "wer": 0.0,
+   "stt_ms": 1382,
+   "audio_ms": 1834
+  },
+  {
+   "sentence": "I want to make a complaint about the service.",
+   "condition": "noise 5 dB",
+   "heard": "I want to make a complaint about the service.",
+   "wer": 0.0,
+   "stt_ms": 1508,
+   "audio_ms": 1834
+  },
+  {
+   "sentence": "Is there an outage in my area right now?",
+   "condition": "clean",
+   "heard": "Is there an outage in my area right now?",
+   "wer": 0.0,
+   "stt_ms": 1539,
+   "audio_ms": 1904
+  },
+  {
+   "sentence": "Is there an outage in my area right now?",
+   "condition": "noise 15 dB",
+   "heard": "Is there an outage in my area right now?",
+   "wer": 0.0,
+   "stt_ms": 1371,
+   "audio_ms": 1904
+  },
+  {
+   "sentence": "Is there an outage in my area right now?",
+   "condition": "noise 5 dB",
+   "heard": "Is there an outage in my area right now?",
+   "wer": 0.0,
+   "stt_ms": 1429,
+   "audio_ms": 1904
+  },
+  {
+   "sentence": "Yes, please go ahead and open a ticket.",
+   "condition": "clean",
+   "heard": "Yes, please go ahead and open a ticket.",
+   "wer": 0.0,
+   "stt_ms": 1404,
+   "audio_ms": 1858
+  },
+  {
+   "sentence": "Yes, please go ahead and open a ticket.",
+   "condition": "noise 15 dB",
+   "heard": "Yes, please go ahead and open and take it.",
+   "wer": 0.375,
+   "stt_ms": 1281,
+   "audio_ms": 1858
+  },
+  {
+   "sentence": "Yes, please go ahead and open a ticket.",
+   "condition": "noise 5 dB",
+   "heard": "Yes, please go ahead and open a ticket.",
+   "wer": 0.0,
+   "stt_ms": 1360,
+   "audio_ms": 1858
+  },
+  {
+   "sentence": "How long will it take to fix?",
+   "condition": "clean",
+   "heard": "How long will it take to fix?",
+   "wer": 0.0,
+   "stt_ms": 1481,
+   "audio_ms": 1382
+  },
+  {
+   "sentence": "How long will it take to fix?",
+   "condition": "noise 15 dB",
+   "heard": "How long will it take to fix?",
+   "wer": 0.0,
+   "stt_ms": 1354,
+   "audio_ms": 1382
+  },
+  {
+   "sentence": "How long will it take to fix?",
+   "condition": "noise 5 dB",
+   "heard": "How long will it take to fix?",
+   "wer": 0.0,
+   "stt_ms": 1250,
+   "audio_ms": 1382
+  }
+ ]
+}
