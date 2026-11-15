@@ -12,7 +12,7 @@ This document describes how the parts fit together. For the wire formats see `do
 ![VoiceOps AI architecture](architecture.png)
 
 The diagram is generated from [`architecture.diagram.json`](architecture.diagram.json); an
-[interactive version](architecture.html) is also available.
+[interactive version](https://rafi0020.github.io/VoiceOps/docs/architecture.html) is also available.
 
 ## Components
 

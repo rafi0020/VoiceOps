@@ -47,9 +47,9 @@ step, server-enforced identity, row-level tenancy, and an evaluation graded from
 
 ## Architecture
 
-![VoiceOps AI architecture](docs/architecture.png)
+![VoiceOps AI architecture](docs/architecture.gif)
 
-[Interactive diagram](docs/architecture.html) (open the file in a browser) · [Architecture notes](docs/ARCHITECTURE.md) · [Database schema](docs/DATABASE.md) · [API reference](docs/API.md)
+[Interactive diagram](https://rafi0020.github.io/VoiceOps/docs/architecture.html) · [Architecture notes](docs/ARCHITECTURE.md) · [Database schema](docs/DATABASE.md) · [API reference](docs/API.md)
 
 | Layer | Technology |
 |---|---|
@@ -388,7 +388,7 @@ repository (the **Security** tab, then **Report a vulnerability**).
 
 | Document | Contents |
 |---|---|
-| [docs/architecture.html](docs/architecture.html) | Interactive architecture diagram (Archify viewer); open it in a browser |
+| [docs/architecture.html](https://rafi0020.github.io/VoiceOps/docs/architecture.html) | Interactive architecture diagram (Archify viewer) |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Components, the voice pipeline, the agent graph, limits, tracing, design decisions, known defects |
 | [docs/API.md](docs/API.md) | Every HTTP route, the voice socket, the event streams and who may call each route |
 | [docs/DATABASE.md](docs/DATABASE.md) | Migrations, roles, row-level security, tables, the lifecycles of calls and credits, demo data |
