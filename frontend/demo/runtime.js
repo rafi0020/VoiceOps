@@ -99,6 +99,7 @@
     for (var i = 0; i < scopes.length; i++) {
       var bin = scopes[i].bin || {};
       var hit = bin[req.key] || bin[req.path];
+      if (typeof hit === "string") hit = (fixtures.bin || {})[hit];
       if (hit) {
         var id = (currentUser() || "anon") + req.key;
         if (!blobs[id]) {
@@ -258,7 +259,7 @@
     var req = parse(String(value));
     if (!req) { assign(value); return; }
     assign("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
-    ready.then(function () { var blob = binary(req); if (blob) assign(URL.createObjectURL(blob)); });
+    ready.then(function () { var blob = binary(req); if (blob) assign(URL.createObjectURL(blob)); else console.warn("demo: not recorded", "image", req.key); });
   }
   Element.prototype.setAttribute = function (name, value) {
     if (this.tagName === "IMG" && String(name).toLowerCase() === "src") return swapImage(this, value, setAttr.bind(this, "src"));

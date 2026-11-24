@@ -5,7 +5,13 @@
 // For every demo account it signs in through the real login form in a real browser, visits the pages and runs the
 // journeys named in the config, and keeps each /api response (and each server-sent event stream) it saw. The result
 // is demo/fixtures.json, which demo/runtime.js replays in the browser on the static GitHub Pages build.
-import { chromium } from "@playwright/test";
+import { createRequire } from "node:module";
+
+// Playwright comes from this project's node_modules; PLAYWRIGHT_FROM (a path to any package.json that can resolve
+// @playwright/test) is the fallback for a project that does not depend on it.
+let chromium;
+try { ({ chromium } = await import("@playwright/test")); }
+catch { ({ chromium } = createRequire(process.env.PLAYWRIGHT_FROM)("@playwright/test")); }
 import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
@@ -230,6 +236,8 @@ function compact(state, user) {
   return { password: user.password, label: user.label, login: state.login, routes, writes, sse, ws, bin };
 }
 
+// DEMO_ONLY=after: keep the existing fixtures and only run each account's `after` step, merging what it records.
+const previous = process.env.DEMO_ONLY === "after" ? JSON.parse(fs.readFileSync(out, "utf8")) : null;
 const fixtures = { meta: { project: config.project, recordedAt: new Date().toISOString() }, login: { path: config.loginApi, logout: config.logoutApi }, anon: { routes: {} }, users: {} };
 // CHROME_PATH lets a machine without Playwright's own browsers use an installed Chrome.
 const browser = await chromium.launch(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {});
@@ -249,19 +257,47 @@ for (const user of config.users) {
   const state = newState();
   const { context, page } = await openContext(browser, state);
   await signIn(page, state, [user.email, user.password]);
-  const helpers = { settle: (ms) => settle(page, ms), mute: async (fn) => { state.muted = true; try { await fn(); } finally { state.muted = false; } }, crawl: (start, max) => crawl(page, start, max), openEvidence: () => openEvidence(page), state };
-  const before = config.journeys?.[user.email];
+  const helpers = { settle: (ms) => settle(page, ms), mute: async (fn) => { state.muted = true; try { await fn(); } finally { state.muted = false; } }, crawl: (start, max) => crawl(page, start, max), openEvidence: () => openEvidence(page), state,
+    // Fetch an image or PDF the pages did not happen to load, and keep it like any other recorded image.
+    fetchBinary: async (apiPath) => {
+      const res = await page.request.get(new URL(apiPath, config.apiBase ?? config.baseUrl).href);
+      const type = (res.headers()["content-type"] ?? "").split(";")[0];
+      const buf = await res.body();
+      if (res.status() === 200 && /^(image\/|application\/pdf)/.test(type) && buf.length <= (config.maxBinaryBytes ?? 900_000)) state.bins.set(apiPath, { type, b64: buf.toString("base64") });
+    },
+    getJson: async (apiPath) => (await page.request.get(new URL(apiPath, config.apiBase ?? config.baseUrl).href)).json(), };
+  const before = previous ? null : config.journeys?.[user.email];
   if (before) await before(page, helpers);
-  if (!config.journeysOnly?.includes(user.email)) {
+  if (!previous && !config.journeysOnly?.includes(user.email)) {
     const visited = await crawl(page, config.crawlStart);
     console.log(`  ${visited.length} pages`);
   }
   const after = config.after?.[user.email];
   if (after) await after(page, helpers);
-  fixtures.users[user.email.toLowerCase()] = compact(state, user);
+  if (previous) {
+    const kept = previous.users[user.email.toLowerCase()];
+    for (const [key, value] of Object.entries(kept.bin ?? {})) if (typeof value === "string") kept.bin[key] = previous.bin[value];
+    for (const [key, value] of state.bins) kept.bin[key] = value;
+    fixtures.users[user.email.toLowerCase()] = kept;
+  } else fixtures.users[user.email.toLowerCase()] = compact(state, user);
   await context.close();
 }
 await browser.close();
+
+// The same page image is seen by every account: keep each one once, and let accounts point at it.
+{
+  const shared = {};
+  const ids = new Map();
+  for (const u of Object.values(fixtures.users)) {
+    for (const [key, value] of Object.entries(u.bin ?? {})) {
+      if (typeof value !== "object") continue;
+      if (!ids.has(value.b64)) { ids.set(value.b64, `b${ids.size}`); shared[ids.get(value.b64)] = value; }
+      u.bin[key] = ids.get(value.b64);
+    }
+  }
+  fixtures.bin = shared;
+  if (previous) { fixtures.anon = previous.anon; fixtures.meta = previous.meta; }
+}
 
 fs.writeFileSync(out, JSON.stringify(fixtures));
 const size = fs.statSync(out).size;
