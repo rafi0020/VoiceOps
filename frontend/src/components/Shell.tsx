@@ -4,7 +4,7 @@ import { BookOpen, ClipboardCheck, History, LogOut, Menu, Mic, Moon, Radio, Sett
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { api, useApi, useMe } from "@/lib/api";
+import { BASE, api, useApi, useMe } from "@/lib/api";
 import type { Role } from "@/lib/types";
 import { Loading, ToastProvider } from "./ui";
 
@@ -88,7 +88,7 @@ export function Shell({ children }: { children: ReactNode }) {
   if (isLoading || !user) return <Loading rows={6} label="Signing in" />;
   const signOut = async () => {
     await api("/api/auth/logout", { method: "POST" }).catch(() => {});
-    window.location.href = "/login/";
+    window.location.href = `${BASE}/login/`;
   };
   const items = NAV.filter((n) => n.roles.includes(user.role));
   const initial = (user.name || user.email).trim().charAt(0).toUpperCase();

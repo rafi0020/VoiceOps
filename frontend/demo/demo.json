@@ -1,0 +1,7 @@
+{
+  "base": "/VoiceOps",
+  "title": "VoiceOps AI",
+  "repo": "https://github.com/rafi0020/VoiceOps",
+  "extra": "Calls are typed here: the microphone is off, and replies replay recorded calls.",
+  "noMic": true
+}

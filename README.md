@@ -9,6 +9,8 @@ step, server-enforced identity, row-level tenancy, and an evaluation graded from
 
 ![VoiceOps AI call in progress](docs/screenshots/08-call-in-progress.png)
 
+**[Live demo](https://rafi0020.github.io/VoiceOps/)**: the real web interface on GitHub Pages, answered from responses recorded on the running system (API, database, worker and model). Sign in with a demo account from the login page. Runs replay as they were recorded and changes are not saved. [How the demo works](frontend/demo/README.md).
+
 ## Features
 
 **A call**
@@ -49,7 +51,7 @@ step, server-enforced identity, row-level tenancy, and an evaluation graded from
 
 ![VoiceOps AI architecture](docs/architecture.gif)
 
-[Interactive diagram](https://rafi0020.github.io/VoiceOps/docs/architecture.html) · [Architecture notes](docs/ARCHITECTURE.md) · [Database schema](docs/DATABASE.md) · [API reference](docs/API.md)
+[Live demo](https://rafi0020.github.io/VoiceOps/) · [Architecture diagram](https://rafi0020.github.io/VoiceOps/diagram/) · [Architecture notes](docs/ARCHITECTURE.md) · [Database schema](docs/DATABASE.md) · [API reference](docs/API.md)
 
 | Layer | Technology |
 |---|---|
@@ -388,7 +390,7 @@ repository (the **Security** tab, then **Report a vulnerability**).
 
 | Document | Contents |
 |---|---|
-| [docs/architecture.html](https://rafi0020.github.io/VoiceOps/docs/architecture.html) | Interactive architecture diagram (Archify viewer) |
+| [Architecture diagram](https://rafi0020.github.io/VoiceOps/diagram/) | Interactive architecture diagram (Archify viewer) |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Components, the voice pipeline, the agent graph, limits, tracing, design decisions, known defects |
 | [docs/API.md](docs/API.md) | Every HTTP route, the voice socket, the event streams and who may call each route |
 | [docs/DATABASE.md](docs/DATABASE.md) | Migrations, roles, row-level security, tables, the lifecycles of calls and credits, demo data |

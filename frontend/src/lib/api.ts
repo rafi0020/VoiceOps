@@ -5,6 +5,8 @@ import type { User } from "./types";
 
 // Same origin in production (nginx proxies /api); set NEXT_PUBLIC_API_URL for local development.
 export const API = process.env.NEXT_PUBLIC_API_URL ?? "";
+// Empty in the real deployment. The GitHub Pages demo is served under /<repository>/ and sets this at build time.
+export const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export class ApiError extends Error {
   constructor(public status: number, message: string) {

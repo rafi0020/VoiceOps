@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
-import { api, ApiError, setCsrf } from "@/lib/api";
+import { BASE, api, ApiError, setCsrf } from "@/lib/api";
 import { OrbShape } from "./Orb";
 
 // The demo organisation seeded on this installation (public demo accounts on a local development app).
@@ -27,7 +27,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
       const body = mode === "login" ? { email: form.email, password: form.password } : form;
       const result = await api<{ csrf_token: string }>(`/api/auth/${mode}`, { method: "POST", json: body });
       setCsrf(result.csrf_token);
-      window.location.href = "/call/";
+      window.location.href = `${BASE}/call/`;
     } catch (e) {
       setError(e instanceof ApiError ? e.message : "Something went wrong.");
       setBusy(false);
